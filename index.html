@@ -23,11 +23,16 @@
             --text-light: #F5F5F5;
         }
 
+        /* Prevención de desplazamiento horizontal */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--primary-dark);
             color: var(--text-light);
-            overflow-x: hidden;
         }
 
         h1, h2, .script-font {
@@ -105,10 +110,11 @@
             opacity: 1;
         }
 
-        /* Botón de música */
+        /* Botón de música - Ajustado para no causar overflow */
         #musicToggle {
             transition: all 0.3s ease;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            touch-action: manipulation;
         }
         
         .playing {
@@ -134,11 +140,11 @@
     </audio>
 
     <!-- Control de música -->
-    <div class="fixed top-6 right-6 z-50 flex flex-col items-center">
-        <button id="musicToggle" class="w-14 h-14 rounded-full bg-yellow-600 text-white flex items-center justify-center shadow-2xl border-2 border-yellow-400/50">
-            <i id="musicIcon" class="fas fa-play text-xl"></i>
+    <div class="fixed top-4 right-4 z-50 flex flex-col items-center">
+        <button id="musicToggle" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-yellow-600 text-white flex items-center justify-center shadow-2xl border-2 border-yellow-400/50">
+            <i id="musicIcon" class="fas fa-play text-lg md:text-xl"></i>
         </button>
-        <span class="mt-2 text-[10px] uppercase tracking-widest text-yellow-500 font-bold bg-black/40 px-2 py-1 rounded backdrop-blur-sm">Música</span>
+        <span class="mt-1 text-[9px] uppercase tracking-widest text-yellow-500 font-bold bg-black/40 px-2 py-0.5 rounded backdrop-blur-sm">Música</span>
     </div>
 
     <!-- SECCIÓN INICIAL -->
@@ -168,22 +174,22 @@
     <section class="py-12 px-4 bg-[#0B2B35]">
         <div class="max-w-4xl mx-auto text-center">
             <h3 class="text-2xl script-font mb-8 text-yellow-500">Falta poco para el gran día</h3>
-            <div class="flex justify-center gap-4 md:gap-8 text-white" id="countdown">
-                <div class="flex flex-col items-center card-glass p-3 rounded-lg w-20">
-                    <span class="text-3xl font-bold title-font" id="days">00</span>
-                    <span class="text-xs uppercase tracking-wider">Días</span>
+            <div class="flex justify-center gap-2 md:gap-8 text-white" id="countdown">
+                <div class="flex flex-col items-center card-glass p-2 md:p-3 rounded-lg w-16 md:w-20">
+                    <span class="text-2xl md:text-3xl font-bold title-font" id="days">00</span>
+                    <span class="text-[10px] uppercase tracking-wider">Días</span>
                 </div>
-                <div class="flex flex-col items-center card-glass p-3 rounded-lg w-20">
-                    <span class="text-3xl font-bold title-font" id="hours">00</span>
-                    <span class="text-xs uppercase tracking-wider">Hrs</span>
+                <div class="flex flex-col items-center card-glass p-2 md:p-3 rounded-lg w-16 md:w-20">
+                    <span class="text-2xl md:text-3xl font-bold title-font" id="hours">00</span>
+                    <span class="text-[10px] uppercase tracking-wider">Hrs</span>
                 </div>
-                <div class="flex flex-col items-center card-glass p-3 rounded-lg w-20">
-                    <span class="text-3xl font-bold title-font" id="minutes">00</span>
-                    <span class="text-xs uppercase tracking-wider">Min</span>
+                <div class="flex flex-col items-center card-glass p-2 md:p-3 rounded-lg w-16 md:w-20">
+                    <span class="text-2xl md:text-3xl font-bold title-font" id="minutes">00</span>
+                    <span class="text-[10px] uppercase tracking-wider">Min</span>
                 </div>
-                <div class="flex flex-col items-center card-glass p-3 rounded-lg w-20">
-                    <span class="text-3xl font-bold title-font" id="seconds">00</span>
-                    <span class="text-xs uppercase tracking-wider">Seg</span>
+                <div class="flex flex-col items-center card-glass p-2 md:p-3 rounded-lg w-16 md:w-20">
+                    <span class="text-2xl md:text-3xl font-bold title-font" id="seconds">00</span>
+                    <span class="text-[10px] uppercase tracking-wider">Seg</span>
                 </div>
             </div>
         </div>
@@ -206,7 +212,7 @@
                 </p>
                 <i class="fas fa-quote-right absolute bottom-4 right-4 text-4xl text-yellow-600/20"></i>
             </div>
-            <p class="mt-6 script-font text-2xl">Con amor, sus papás</p>
+            <p class="mt-6 script-font text-2xl">Con amor, Maggie y Fausto</p>
         </div>
     </section>
 
@@ -217,7 +223,6 @@
             <p class="text-gray-400 text-xs uppercase tracking-widest mb-12" data-aos="fade-up">Atesorando cada momento</p>
             
             <div class="flex flex-col gap-4">
-                <!-- Foto Principal Grande -->
                 <div class="w-full flex justify-center" data-aos="zoom-in">
                     <div class="img-container w-full max-w-4xl aspect-[16/9] md:aspect-[21/9]">
                         <img src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?q=80&w=1200&fit=crop" alt="Julieta de pequeña">
@@ -225,7 +230,6 @@
                     </div>
                 </div>
 
-                <!-- Mosaico de 4 Fotos -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="img-container aspect-square md:aspect-[3/4]" data-aos="fade-up" data-aos-delay="100">
                         <img src="https://images.unsplash.com/photo-1546188994-07c34f295f52?q=80&w=600&fit=crop" alt="Infancia 1">
@@ -308,14 +312,14 @@
                     <i class="fas fa-church text-3xl text-yellow-600 mb-4"></i>
                     <h3 class="text-xl font-bold mb-2 title-font text-white">Ceremonia</h3>
                     <p class="text-sm text-gray-300 mb-6">Parroquia de Santiago Apóstol<br>C. Comerciantes #5260, Zapopan.</p>
-                    <a href="https://maps.app.goo.gl/95u3yV6N3f3Yq2fR8" target="_blank" class="inline-block bg-yellow-600 text-white px-8 py-3 rounded-full uppercase text-xs tracking-widest font-bold hover:bg-yellow-500 transition-colors">Ver Mapa</a>
+                    <a href="https://maps.app.goo.gl/jersps4CQagBCoUSA" target="_blank" class="inline-block bg-yellow-600 text-white px-8 py-3 rounded-full uppercase text-xs tracking-widest font-bold hover:bg-yellow-500 transition-colors">Ver Mapa</a>
                 </div>
                 <!-- Salon -->
                 <div class="card-glass p-8 rounded-xl" data-aos="fade-up" data-aos-delay="200">
                     <i class="fas fa-glass-cheers text-3xl text-yellow-600 mb-4"></i>
                     <h3 class="text-xl font-bold mb-2 title-font text-white">Recepción</h3>
                     <p class="text-sm text-gray-300 mb-6">La Veta Eventos<br>C. Volcan Ajusco #4830, Zapopan.</p>
-                    <a href="https://maps.app.goo.gl/P3wN6yvD7P2Pq3fR8" target="_blank" class="inline-block bg-yellow-600 text-white px-8 py-3 rounded-full uppercase text-xs tracking-widest font-bold hover:bg-yellow-500 transition-colors">Ver Mapa</a>
+                    <a href="https://maps.app.goo.gl/emZBkwMmsAxaSrig6" target="_blank" class="inline-block bg-yellow-600 text-white px-8 py-3 rounded-full uppercase text-xs tracking-widest font-bold hover:bg-yellow-500 transition-colors">Ver Mapa</a>
                 </div>
             </div>
         </div>
@@ -400,7 +404,7 @@
         const musicIcon = document.getElementById('musicIcon');
         musicBtn.addEventListener('click', () => {
             if (music.paused) {
-                music.play();
+                music.play().catch(e => console.log("Auto-play blocked"));
                 musicIcon.classList.replace('fa-play', 'fa-pause');
                 musicBtn.classList.add('playing');
             } else {
@@ -412,3 +416,5 @@
     </script>
 </body>
 </html>
+
+
