@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XV Años - Julieta Alejandra</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #0F4C5C; 
+            --primary-dark: #09343F;
+            --accent-gold: #D4AF37;
+            --text-light: #F5F5F5;
+        }
+
+        /* Prevención estricta de desplazamiento horizontal en móviles */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+        }
+
+        h1, h2, .script-font {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .title-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1546188994-07c34f295f52?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(15, 76, 92, 0.7), rgba(9, 52, 63, 1));
+        }
+
+        .gold-text {
+            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card-glass {
+            background: rgba(15, 76, 92, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Galería */
+        .img-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            background: #000;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .img-overlay-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        .img-container:hover .img-overlay-text {
+            opacity: 1;
+        }
+
+        /* Botón de música */
+        #musicToggle {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            touch-action: manipulation;
+        }
+        
+        .playing {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--primary-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Reproductor de Audio (Preparado para archivo local) -->
+    <audio id="bgMusic" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+        <!-- Fallback en caso de que aún no subas el archivo -->
+        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Control de música -->
+    <div class="fixed top-4 right-4 z-50 flex flex-col items-center">
+        <button id="musicToggle" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-yellow-600 text-white flex items-center justify-center shadow-2xl border-2 border-yellow-400/50">
+            <i id="musicIcon" class="fas fa-play text-lg md:text-xl"></i>
+        </button>
+        <span class="mt-1 text-[9px] uppercase tracking-widest text-yellow-500 font-bold bg-black/40 px-2 py-0.5 rounded backdrop-blur-sm">Música</span>
+    </div>
+
+    <!-- SECCIÓN INICIAL -->
+    <section class="relative h-screen flex items-center justify-center text-center px-4 hero-bg">
+        <div class="absolute inset-0 hero-overlay"></div>
+        
+        <div class="relative z-10 w-full max-w-lg" data-aos="fade-up" data-aos-duration="1500">
+            <p class="text-lg md:text-xl tracking-[0.3em] uppercase mb-4 text-gray-300">Nuestra Hija</p>
+            <h2 class="text-5xl md:text-7xl mb-2 script-font text-white">Mis XV Años</h2>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 gold-text title-font mt-4 px-2">Julieta Alejandra</h1>
+            
+            <div class="w-24 h-1 bg-yellow-600 mx-auto mb-6"></div>
+            
+            <p class="text-lg md:text-xl italic font-light mb-8 px-4">"Acompáñanos a celebrar este día tan especial"</p>
+            
+            <div class="inline-block border border-yellow-600 px-6 md:px-8 py-4 rounded-sm bg-black/30 backdrop-blur-sm">
+                <p class="text-xl md:text-2xl title-font tracking-widest text-white">07 | MAR | 2026</p>
+            </div>
+            
+            <div class="mt-12 animate-bounce">
+                <i class="fas fa-chevron-down text-2xl text-yellow-600"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUENTA REGRESIVA -->
+    <section class="py-12 px-4 bg-[#0B2B35]">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-2xl script-font mb-8 text-yellow-500">Falta poco para el gran día</h3>
+            <div class="flex justify-center gap-2 md:gap-8 text-white" id="countdown">
+                <div class="flex flex-col items-center card-glass p-2 md:p-3 rounded-lg w-16 md:w-20">
+                    <span class="text-2xl md:text-3xl font-bold title-font" id="days">00</span>
+                    <span class="text-[10px] uppercase tracking-wider">Días</span>
+                </div>
+                <div class="flex flex-col items-center card-glass p-2 md:p-3 rounded-lg w-16 md:w-20">
+                    <span class="text-2xl md:text-3xl font-bold title-font" id="hours">00</span>
+                    <span class="text-[10px] uppercase tracking-wider">Hrs</span>
+                </div>
+                <div class="flex flex-col items-center card-glass p-2 md:p-3 rounded-lg w-16 md:w-20">
+                    <span class="text-2xl md:text-3xl font-bold title-font" id="minutes">00</span>
+                    <span class="text-[10px] uppercase tracking-wider">Min</span>
+                </div>
+                <div class="flex flex-col items-center card-glass p-2 md:p-3 rounded-lg w-16 md:w-20">
+                    <span class="text-2xl md:text-3xl font-bold title-font" id="seconds">00</span>
+                    <span class="text-[10px] uppercase tracking-wider">Seg</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENSAJE PAPÁS -->
+    <section class="py-16 px-6 relative overflow-hidden">
+        <div class="max-w-2xl mx-auto text-center" data-aos="fade-up">
+            <i class="fas fa-crown text-4xl text-yellow-600 mb-6"></i>
+            <h2 class="text-4xl script-font mb-8 gold-text">Mensaje de los Padres</h2>
+            <div class="card-glass p-6 md:p-8 rounded-xl shadow-2xl relative">
+                <i class="fas fa-quote-left absolute top-4 left-4 text-3xl text-yellow-600/20"></i>
+                <p class="text-base md:text-lg leading-relaxed text-gray-200 mb-4 font-light">
+                    No es solo una fecha en el calendario, es el comienzo de una etapa maravillosa. 
+                    <strong class="text-yellow-500">July</strong> cumple XV y está lista para abrazar el mundo con risas, música y nuevas aventuras.
+                </p>
+                <p class="text-base md:text-lg leading-relaxed text-gray-200 font-light">
+                    Con su energía radiante y espíritu alegre, deseamos compartir este momento con quienes han sido parte de su historia. 
+                    Acompáñanos a vivir una noche llena de emociones y recuerdos que durarán para siempre.
+                </p>
+                <i class="fas fa-quote-right absolute bottom-4 right-4 text-3xl text-yellow-600/20"></i>
+            </div>
+            <p class="mt-6 script-font text-3xl md:text-4xl text-yellow-500">Con amor, Maggie y Fausto</p>
+        </div>
+    </section>
+
+    <!-- GALERÍA DE FOTOS -->
+    <section class="py-16 px-4 bg-transparent overflow-hidden">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-4xl script-font mb-2 gold-text" data-aos="fade-up">Un camino de alegrías</h2>
+            <p class="text-gray-400 text-xs uppercase tracking-widest mb-12" data-aos="fade-up">Atesorando cada momento</p>
+            
+            <div class="flex flex-col gap-4">
+                <div class="w-full flex justify-center" data-aos="zoom-in">
+                    <div class="img-container w-full max-w-4xl aspect-[16/9] md:aspect-[21/9]">
+                        <img src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?q=80&w=1200&fit=crop" alt="Julieta de pequeña">
+                        <div class="img-overlay-text">Nuestra hermosa Julieta desde siempre</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="img-container aspect-square md:aspect-[3/4]" data-aos="fade-up" data-aos-delay="100">
+                        <img src="https://images.unsplash.com/photo-1546188994-07c34f295f52?q=80&w=600&fit=crop" alt="Infancia 1">
+                        <div class="img-overlay-text">Sonrisas eternas</div>
+                    </div>
+                    <div class="img-container aspect-square md:aspect-[3/4]" data-aos="fade-up" data-aos-delay="200">
+                        <img src="https://images.unsplash.com/photo-1502781252888-9143ba7f074e?q=80&w=600&fit=crop" alt="Infancia 2">
+                        <div class="img-overlay-text">Momentos especiales</div>
+                    </div>
+                    <div class="img-container aspect-square md:aspect-[3/4]" data-aos="fade-up" data-aos-delay="300">
+                        <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=600&fit=crop" alt="Actual 1">
+                        <div class="img-overlay-text">Creciendo feliz</div>
+                    </div>
+                    <div class="img-container aspect-square md:aspect-[3/4]" data-aos="fade-up" data-aos-delay="400">
+                        <img src="https://images.unsplash.com/photo-1529626458015-69739cdd94c2?q=80&w=600&fit=crop" alt="Actual 2">
+                        <div class="img-overlay-text">Rumbo a sus XV</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PADRINOS -->
+    <section class="py-12 px-4 bg-[#0B2B35]">
+        <div class="max-w-2xl mx-auto text-center" data-aos="fade-up">
+            <h3 class="uppercase tracking-widest text-sm text-yellow-500 mb-2">Con la bendición de nuestros padrinos</h3>
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent mb-6"></div>
+            <div class="space-y-4">
+                <p class="text-xl md:text-2xl title-font font-semibold">Hernan Langarica Santos</p>
+                <p class="text-xl md:text-2xl title-font font-semibold">María de Jesús Walle Santana</p>
+            </div>
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent mt-6"></div>
+        </div>
+    </section>
+
+    <!-- ITINERARIO -->
+    <section class="py-20 px-4">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl script-font text-center mb-12 gold-text" data-aos="fade-down">Programa del Evento</h2>
+            <div class="relative">
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-yellow-600/30 md:transform md:-translate-x-1/2"></div>
+
+                <!-- Ceremonia -->
+                <div class="mb-12 relative md:flex md:justify-between items-center group" data-aos="fade-right">
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-yellow-600 rounded-full border-4 border-[#0F4C5C] transform -translate-x-2 md:-translate-x-1/2 mt-1.5 z-10"></div>
+                    <div class="pl-12 md:pl-0 md:w-[45%] md:text-right text-yellow-500 font-bold title-font text-xl md:text-2xl">7:00 PM</div>
+                    <div class="pl-12 md:pl-8 md:w-[45%] mt-1">
+                        <h3 class="text-lg md:text-xl font-bold">Ceremonia Religiosa</h3>
+                        <p class="text-sm text-gray-300 italic">Parroquia de Santiago Apóstol</p>
+                        <p class="text-[10px] text-yellow-600/80 mt-1 uppercase tracking-tighter">Oficia el Padre Francisco Alberto Esquivel Roldán</p>
+                    </div>
+                </div>
+
+                <!-- Coctel -->
+                <div class="mb-12 relative md:flex md:justify-between items-center group" data-aos="fade-left">
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-yellow-600 rounded-full border-4 border-[#0F4C5C] transform -translate-x-2 md:-translate-x-1/2 mt-1.5 z-10"></div>
+                    <div class="pl-12 md:pl-0 md:w-[45%] md:text-right md:order-2 text-yellow-500 font-bold title-font text-xl md:text-2xl">8:00 PM</div>
+                    <div class="pl-12 md:pl-0 md:pr-8 md:w-[45%] mt-1 md:text-right md:order-1">
+                        <h3 class="text-lg md:text-xl font-bold">Coctel de Bienvenida</h3>
+                        <p class="text-sm text-gray-300">En La Veta Eventos</p>
+                    </div>
+                </div>
+
+                <!-- Cena -->
+                <div class="mb-12 relative md:flex md:justify-between items-center group" data-aos="fade-right">
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-yellow-600 rounded-full border-4 border-[#0F4C5C] transform -translate-x-2 md:-translate-x-1/2 mt-1.5 z-10"></div>
+                    <div class="pl-12 md:pl-0 md:w-[45%] md:text-right text-yellow-500 font-bold title-font text-xl md:text-2xl">9:00 PM</div>
+                    <div class="pl-12 md:pl-8 md:w-[45%] mt-1">
+                        <h3 class="text-lg md:text-xl font-bold">Cena y Recepción</h3>
+                        <p class="text-sm text-gray-300 italic">¡A disfrutar la noche!</p>
+                    </div>
+                </div>
+
+                <!-- La Seguimos -->
+                <div class="mb-12 relative md:flex md:justify-between items-center group" data-aos="fade-left">
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-yellow-600 rounded-full border-4 border-[#0F4C5C] transform -translate-x-2 md:-translate-x-1/2 mt-1.5 z-10"></div>
+                    <div class="pl-12 md:pl-0 md:w-[45%] md:text-right md:order-2 text-yellow-500 font-bold title-font text-xl md:text-2xl">2:00 AM</div>
+                    <div class="pl-12 md:pl-0 md:pr-8 md:w-[45%] mt-1 md:text-right md:order-1">
+                        <h3 class="text-lg md:text-xl font-bold">¡A seguirla!</h3>
+                        <p class="text-sm text-gray-300 italic">Pero en su casa (Cierre de evento)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UBICACIONES -->
+    <section class="py-16 px-4 bg-[#0B2B35]">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-4xl script-font mb-12 gold-text">Ubicaciones</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Iglesia -->
+                <div class="card-glass p-8 rounded-xl" data-aos="fade-up">
+                    <i class="fas fa-church text-3xl text-yellow-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2 title-font text-white">Ceremonia</h3>
+                    <p class="text-sm text-gray-300 mb-6">Parroquia de Santiago Apóstol<br>C. Comerciantes #5260, Zapopan.</p>
+                    <a href="https://maps.app.goo.gl/jersps4CQagBCoUSA" target="_blank" class="inline-block bg-yellow-600 text-white px-8 py-3 rounded-full uppercase text-xs tracking-widest font-bold hover:bg-yellow-500 transition-colors">Ver Mapa</a>
+                </div>
+                <!-- Salon -->
+                <div class="card-glass p-8 rounded-xl" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-glass-cheers text-3xl text-yellow-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2 title-font text-white">Recepción</h3>
+                    <p class="text-sm text-gray-300 mb-6">La Veta Eventos<br>C. Volcan Ajusco #4830, Zapopan.</p>
+                    <a href="https://maps.app.goo.gl/emZBkwMmsAxaSrig6" target="_blank" class="inline-block bg-yellow-600 text-white px-8 py-3 rounded-full uppercase text-xs tracking-widest font-bold hover:bg-yellow-500 transition-colors">Ver Mapa</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DRESS CODE & ADULTOS -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Codigo de vestimenta -->
+                <div class="card-glass p-8 rounded-2xl flex flex-col items-center">
+                    <i class="fas fa-user-tie text-4xl text-yellow-600 mb-4"></i>
+                    <h2 class="text-2xl title-font gold-text mb-4">Código de Vestimenta</h2>
+                    <p class="text-xl text-white font-bold mb-2">ELEGANTE FORMAL</p>
+                    <p class="text-sm text-gray-300 italic">Nos encantará verte lucir tu mejor estilo.</p>
+                    <div class="mt-6 p-4 border border-yellow-600/30 rounded-lg bg-black/20">
+                        <p class="text-xs text-yellow-500 font-bold uppercase tracking-widest">Aviso Especial:</p>
+                        <p class="text-sm text-white mt-1">Reservamos el color <span class="text-yellow-400 font-bold">Azul Petroleo</span> para la festejada.</p>
+                    </div>
+                </div>
+
+                <!-- No Niños -->
+                <div class="card-glass p-8 rounded-2xl flex flex-col items-center justify-center">
+                    <i class="fas fa-child-slash text-4xl text-yellow-600 mb-4"></i>
+                    <h2 class="text-2xl title-font gold-text mb-4">Evento de Adultos</h2>
+                    <p class="text-lg text-white font-medium mb-2">No Niños</p>
+                    <p class="text-sm text-gray-300 italic px-4 leading-relaxed">
+                        Apreciamos tu comprensión, deseamos que este sea un momento de descanso y diversión para todos los adultos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MESA DE REGALOS -->
+    <section class="py-12 px-4">
+        <div class="max-w-4xl mx-auto text-center" data-aos="zoom-in">
+            <h2 class="text-4xl script-font mb-4 gold-text">Mesa de Regalos</h2>
+            <p class="text-gray-300 mb-12 italic px-2">Tu presencia es mi mejor regalo, pero si deseas obsequiarme algo...</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Liverpool -->
+                <div class="card-glass p-8 rounded-2xl border-b-4 border-pink-500 flex flex-col items-center">
+                    <div class="flex items-center justify-center mb-6 w-full h-16">
+                        <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg" class="max-w-[200px]">
+                            <circle cx="45" cy="50" r="30" fill="none" stroke="#E10098" stroke-width="4"/>
+                            <circle cx="45" cy="50" r="12" fill="#E10098"/>
+                            <text x="90" y="65" font-family="'Montserrat', sans-serif" font-size="64" font-weight="600" fill="white" letter-spacing="-2">Liverpool</text>
+                        </svg>
+                    </div>
+                    <p class="text-gray-300 mb-2">Número de Evento:</p>
+                    <p class="text-2xl md:text-3xl font-bold title-font text-white mb-4 tracking-wider">51929790</p>
+                    <div class="bg-pink-500/10 px-4 py-1 rounded-full">
+                        <p class="text-[10px] text-pink-400 uppercase tracking-widest font-bold">Válido en sucursales y en línea</p>
+                    </div>
+                </div>
+                
+                <!-- Amazon -->
+                <div class="card-glass p-8 rounded-2xl border-b-4 border-orange-400 flex flex-col justify-between">
+                    <div>
+                        <div class="h-16 flex items-center justify-center mb-6">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="h-6 brightness-0 invert">
+                        </div>
+                        <p class="text-gray-300 mb-6 font-light text-sm">Encuentra mi lista de deseos haciendo clic abajo:</p>
+                    </div>
+                    <a href="https://www.amazon.com.mx/registries/gl/guest-view/30XW3MWUXVWK0" target="_blank" class="bg-orange-400 text-black font-bold py-3 px-6 rounded-full hover:bg-orange-500 transition-all uppercase text-xs tracking-widest">Abrir Mesa Amazon</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="py-20 px-4 text-center">
+        <div class="max-w-xl mx-auto card-glass p-8 md:p-10 rounded-2xl border-t-4 border-green-500" data-aos="zoom-in">
+            <h2 class="text-3xl md:text-4xl script-font mb-4 text-white">¿Nos acompañas?</h2>
+            <p class="text-gray-300 mb-8 font-light italic">Favor de confirmar antes del 20 de febrero.</p>
+            <a href="https://wa.me/523313384169?text=Confirmamos%20asistencia%20para%20los%20XV%20de%20Julieta." target="_blank" class="bg-green-600 text-white font-bold py-4 md:py-5 px-6 md:px-10 rounded-full shadow-xl hover:bg-green-700 transition-all flex items-center justify-center gap-3">
+                <i class="fab fa-whatsapp text-2xl"></i>
+                Confirmar Asistencia
+            </a>
+        </div>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-black py-16 text-center border-t border-yellow-600/20">
+        <p class="script-font text-4xl gold-text mb-4">Con mucho cariño</p>
+        <p class="title-font uppercase tracking-[0.5em] text-xs text-white opacity-60">Familia Castellanos Martell</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicializar animaciones
+        AOS.init({ once: true, duration: 1000, disable: 'mobile' });
+
+        // Cuenta regresiva
+        const targetDate = new Date("Mar 7, 2026 00:00:00").getTime();
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            if (distance < 0) return;
+            document.getElementById("days").innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById("hours").innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+        };
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Lógica de Música mejorada
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+        
+        musicBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (music.paused) {
+                music.play().then(() => {
+                    musicIcon.classList.replace('fa-play', 'fa-pause');
+                    musicBtn.classList.add('playing');
+                }).catch(err => {
+                    console.log("Error al reproducir: El archivo musica.mp3 no existe aún o el navegador lo bloqueó.");
+                });
+            } else {
+                music.pause();
+                musicIcon.classList.replace('fa-pause', 'fa-play');
+                musicBtn.classList.remove('playing');
+            }
+        });
+    </script>
+</body>
+</html>
