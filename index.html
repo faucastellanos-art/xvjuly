@@ -9,6 +9,7 @@
     <meta property="og:type" content="website" />
 	<!-- evitar modo obscuro -->
 	<meta name="color-scheme" content="dark">
+	<meta name="theme-color" content="#09343F">
 
     <!-- Opcional pero recomendado -->
     <meta property="og:site_name" content="XV Julieta Alejandra" />
@@ -148,6 +149,29 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--primary-dark); }
         ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 4px; }
+		
+		/* 🔒 BLOQUEO TOTAL DE AUTO DARK MODE DE CHROME */
+html {
+    background-color: #09343F !important;
+}
+
+body {
+    background-color: #09343F !important;
+    color: #F5F5F5 !important;
+}
+
+/* Fuerza fondo sólido en TODAS las secciones */
+section,
+footer,
+header,
+main {
+    background-color: inherit !important;
+}
+
+/* Evita que Chrome altere imágenes */
+img, video {
+    filter: none !important;
+}
     </style>
 </head>
 <body class="antialiased">
