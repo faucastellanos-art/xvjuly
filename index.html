@@ -159,7 +159,9 @@ body {
     background-color: #09343F !important;
     color: #F5F5F5 !important;
 }
-
+html {
+    scroll-behavior: smooth;
+}
 /* Fuerza fondo sólido en TODAS las secciones */
 section,
 footer,
@@ -208,14 +210,14 @@ img, video {
                 <p class="text-xl md:text-2xl title-font tracking-widest text-white">07 | MAR | 2026</p>
             </div>
             
-            <div class="mt-12 animate-bounce">
-                <i class="fas fa-chevron-down text-2xl text-yellow-600"></i>
-            </div>
+            <a href="#countdown-section" class="mt-12 animate-bounce block cursor-pointer">
+    <i class="fas fa-chevron-down text-2xl text-yellow-600"></i>
+</a>
         </div>
     </section>
 
     <!-- CUENTA REGRESIVA -->
-    <section class="py-12 px-4 bg-[#0B2B35]">
+    <section id="countdown-section" class="py-12 px-4 bg-[#0B2B35]">
         <div class="max-w-4xl mx-auto text-center">
             <h3 class="text-2xl script-font mb-8 text-yellow-500">Falta poco para el gran día</h3>
             <div class="flex justify-center gap-2 md:gap-8 text-white" id="countdown">
@@ -545,10 +547,6 @@ img, video {
 </body>
 
 </html>
-
-
-
-
 
 
 
